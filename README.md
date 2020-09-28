@@ -7,7 +7,7 @@ An e-commerce site template built with TypeScript, NodeJS, Express, MongoDB, EJS
 
 ## Getting started
 
-This project will run on **Express** using **MongoDB** as database. Project is open for suggestions, bug reports and pull requests.
+This project will run on **Express** using **MongoDB Atlas** as database. Project is open for suggestions, bug reports and pull requests.
 
 ## Features
 
