@@ -1,18 +1,24 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
-const shop_1 = __importDefault(require("../controllers/shop"));
-router.get('/', shop_1.default.getHome);
-router.get('/products', shop_1.default.getProducts);
-router.get('/products/:productId', shop_1.default.getProduct);
-router.get('/cart', shop_1.default.getCart);
-router.post('/cart', shop_1.default.postCart);
-router.post('/cart-delete-item', shop_1.default.postDeleteCart);
-router.post('/create-order', shop_1.default.postOrder);
-router.get('/orders', shop_1.default.getOrders);
+const index_1 = require("../index");
+router.get('/', (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(`<h1>Hey Mofos</h1>`);
+    const getDb = yield index_1.db;
+    console.log(getDb.collection);
+}));
 exports.default = module.exports = router;
 //# sourceMappingURL=shop.js.map
