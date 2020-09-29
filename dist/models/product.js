@@ -22,7 +22,7 @@ class Product {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const db = yield index_1.getDb;
-                const result = db.collection('products').insertOne(this);
+                db.collection('products').insertOne(this);
             }
             catch (err) {
                 console.log(err);
@@ -33,13 +33,8 @@ class Product {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const db = yield index_1.getDb;
-                const updateProd = yield db.collection('products').updateOne({ _id: new mongodb_1.ObjectId(id) }, {
-                    $set: {
-                        title: this.title,
-                        price: this.price,
-                        description: this.description,
-                        imageUrl: this.imageUrl,
-                    },
+                db.collection('products').updateOne({ _id: new mongodb_1.ObjectId(id) }, {
+                    $set: this,
                 });
             }
             catch (err) {
@@ -80,7 +75,7 @@ class Product {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const db = yield index_1.getDb;
-                const delProd = yield db.collection('products').deleteOne({ _id: new mongodb_1.ObjectId(id) });
+                db.collection('products').deleteOne({ _id: new mongodb_1.ObjectId(id) });
             }
             catch (err) {
                 console.log(err);

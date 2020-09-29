@@ -70,7 +70,7 @@ const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, f
         const price = +req.body.price;
         const description = req.body.description;
         const prod = new product_1.default(title, price, description, imageUrl);
-        const updating = yield prod.update(prodId);
+        yield prod.update(prodId);
         res.redirect('/admin/products');
     }
     catch (err) {
@@ -79,7 +79,7 @@ const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, f
 });
 const postDeleteProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const prodId = req.body.productId;
-    const deleting = yield product_1.default.delete(prodId);
+    yield product_1.default.delete(prodId);
     res.redirect('/admin/products');
 });
 exports.default = module.exports = {

@@ -57,7 +57,7 @@ const postEditProduct = async (req: express.Request, res: express.Response, _nex
     const price = +req.body.price;
     const description = req.body.description;
     const prod = new Product(title, price, description, imageUrl);
-    const updating = await prod.update(prodId);
+    await prod.update(prodId);
     res.redirect('/admin/products');
   } catch (err) {
     console.log(err);
@@ -70,7 +70,7 @@ const postDeleteProduct = async (
   _next: express.NextFunction
 ) => {
   const prodId: string = req.body.productId;
-  const deleting = await Product.delete(prodId);
+  await Product.delete(prodId);
   res.redirect('/admin/products');
 };
 

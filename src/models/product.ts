@@ -19,7 +19,7 @@ class Product {
   async save() {
     try {
       const db = await getDb;
-      const result = db.collection('products').insertOne(this);
+      db.collection('products').insertOne(this);
     } catch (err) {
       console.log(err);
     }
@@ -28,15 +28,10 @@ class Product {
   async update(id: string) {
     try {
       const db = await getDb;
-      const updateProd = await db.collection('products').updateOne(
+      db.collection('products').updateOne(
         { _id: new ObjectId(id) },
         {
-          $set: {
-            title: this.title,
-            price: this.price,
-            description: this.description,
-            imageUrl: this.imageUrl,
-          },
+          $set: this,
         }
       );
     } catch (err) {
@@ -71,7 +66,7 @@ class Product {
   static async delete(id: string) {
     try {
       const db = await getDb;
-      const delProd = await db.collection('products').deleteOne({ _id: new ObjectId(id) });
+      db.collection('products').deleteOne({ _id: new ObjectId(id) });
     } catch (err) {
       console.log(err);
     }
