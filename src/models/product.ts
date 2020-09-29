@@ -68,6 +68,14 @@ class Product {
       throw err;
     }
   }
+  static async delete(id: string) {
+    try {
+      const db = await getDb;
+      const delProd = await db.collection('products').deleteOne({ _id: new ObjectId(id) });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default module.exports = Product;

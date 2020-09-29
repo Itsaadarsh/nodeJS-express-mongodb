@@ -77,11 +77,17 @@ const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, f
         console.log(err);
     }
 });
+const postDeleteProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    const prodId = req.body.productId;
+    const deleting = yield product_1.default.delete(prodId);
+    res.redirect('/admin/products');
+});
 exports.default = module.exports = {
     getAddProduct,
     getProducts,
     postAddProduct,
     getEditProduct,
     postEditProduct,
+    postDeleteProduct,
 };
 //# sourceMappingURL=admin.js.map

@@ -76,6 +76,17 @@ class Product {
             }
         });
     }
+    static delete(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const db = yield index_1.getDb;
+                const delProd = yield db.collection('products').deleteOne({ _id: new mongodb_1.ObjectId(id) });
+            }
+            catch (err) {
+                console.log(err);
+            }
+        });
+    }
 }
 exports.default = module.exports = Product;
 //# sourceMappingURL=product.js.map

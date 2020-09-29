@@ -65,15 +65,15 @@ const postEditProduct = async (req: express.Request, res: express.Response, _nex
   }
 };
 
-// const postDeleteProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   const prodId: number = +req.body.productId;
-//   if (typeof prodId === 'number') {
-//     Product.delete({ id: prodId });
-//     setTimeout(() => {
-//       res.redirect('/admin/products');
-//     }, 500);
-//   }
-// };
+const postDeleteProduct = async (
+  req: express.Request,
+  res: express.Response,
+  _next: express.NextFunction
+) => {
+  const prodId: string = req.body.productId;
+  const deleting = await Product.delete(prodId);
+  res.redirect('/admin/products');
+};
 
 export default module.exports = {
   getAddProduct,
@@ -81,5 +81,5 @@ export default module.exports = {
   postAddProduct,
   getEditProduct,
   postEditProduct,
-  //   postDeleteProduct,
+  postDeleteProduct,
 };
