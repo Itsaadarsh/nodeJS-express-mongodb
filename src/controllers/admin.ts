@@ -32,22 +32,23 @@ const getProducts = async (_req: express.Request, res: express.Response, _next: 
     console.log(err);
   }
 };
-// const getEditProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   const prodId = +req.params.productId;
-//   const edit = req.query.edit;
-//   if (edit === 'false') res.redirect('/');
-//   Product.findOne({ id: +prodId })
-//     .then(prod => {
-//       if (!prod) res.redirect('/');
-//       res.render('admin/edit-product', {
-//         pageTitle: 'Edit Product',
-//         path: '/admin/edit-product',
-//         editing: edit,
-//         product: prod,
-//       });
-//     })
-//     .catch(console.log);
-// };
+const getEditProduct = async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  try {
+    const prodId: string = req.params.productId;
+    const edit = req.query.edit;
+    if (edit === 'false') res.redirect('/');
+    const prod = await Product.fetchOne(prodId);
+    if (prod.length == 0) res.redirect('/');
+    res.render('admin/edit-product', {
+      pageTitle: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: edit,
+      product: prod[0],
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // const postEditProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   const prodId: number = +req.body.productId;
@@ -81,7 +82,7 @@ export default module.exports = {
   getAddProduct,
   getProducts,
   postAddProduct,
-  //   getEditProduct,
-  //   postEditProduct,
+  getEditProduct,
+  // postEditProduct,
   //   postDeleteProduct,
 };

@@ -42,9 +42,30 @@ const getProducts = (_req, res, _next) => __awaiter(void 0, void 0, void 0, func
         console.log(err);
     }
 });
+const getEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const prodId = req.params.productId;
+        const edit = req.query.edit;
+        if (edit === 'false')
+            res.redirect('/');
+        const prod = yield product_1.default.fetchOne(prodId);
+        if (prod.length == 0)
+            res.redirect('/');
+        res.render('admin/edit-product', {
+            pageTitle: 'Edit Product',
+            path: '/admin/edit-product',
+            editing: edit,
+            product: prod[0],
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 exports.default = module.exports = {
     getAddProduct,
     getProducts,
     postAddProduct,
+    getEditProduct,
 };
 //# sourceMappingURL=admin.js.map

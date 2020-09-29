@@ -25,6 +25,26 @@ class Product {
     }
   }
 
+  async update(id: string) {
+    try {
+      const db = await getDb;
+      const updateProd = await db.collection('products').updateOne(
+        { _id: new ObjectId(id) },
+        {
+          $set: {
+            title: this.title,
+            price: this.price,
+            description: this.description,
+            imageUrl: this.imageUrl,
+          },
+        }
+      );
+      console.log(updateProd);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   static async fetchAll() {
     try {
       const db = await getDb;
