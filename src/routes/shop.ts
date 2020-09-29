@@ -1,12 +1,12 @@
 import express from 'express';
 const router = express.Router();
-import { db } from '../index';
+import { getDb } from '../index';
 // import shopController from '../controllers/shop';
 
 router.get('/', async (_req, res, _next) => {
   res.send(`<h1>Hey Mofos</h1>`);
-  const getDb = await db;
-  console.log(getDb.collection);
+  const db = await getDb;
+  console.log(db.collection);
 });
 
 // router.get('/', shopController.getHome);

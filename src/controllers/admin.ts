@@ -1,31 +1,24 @@
-// import { Product } from '../models/product';
-// import express from 'express';
+import Product from '../models/product';
+import express from 'express';
 // import { User } from '../models/user';
 
-// const getAddProduct = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   res.render('admin/edit-product', {
-//     pageTitle: 'ADD PRODUCTS',
-//     path: '/admin/add-product',
-//     editing: false,
-//   });
-// };
+const getAddProduct = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  res.render('admin/edit-product', {
+    pageTitle: 'ADD PRODUCTS',
+    path: '/admin/add-product',
+    editing: false,
+  });
+};
 
-// const postAddProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   User.find({ select: ['id'] })
-//     .then(userID => {
-//       const product = new Product();
-//       product.title = req.body.title;
-//       product.imageUrl = req.body.imageUrl;
-//       product.price = req.body.price;
-//       product.description = req.body.description;
-//       product.userid = userID[userID.length - 1];
-//       Product.save(product);
-//       setTimeout(() => {
-//         res.redirect('/');
-//       }, 500);
-//     })
-//     .catch(console.log);
-// };
+const postAddProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const price = req.body.price;
+  const description = req.body.description;
+  const prod = new Product(title, price, description, imageUrl);
+  prod.save();
+  res.redirect('/admin/add-product');
+};
 
 // const getProducts = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   Product.find({ where: { userid: 1 } })
@@ -84,11 +77,11 @@
 //   }
 // };
 
-// export default module.exports = {
-//   getAddProduct,
-//   getProducts,
-//   postAddProduct,
-//   getEditProduct,
-//   postEditProduct,
-//   postDeleteProduct,
-// };
+export default module.exports = {
+  getAddProduct,
+  //   getProducts,
+  postAddProduct,
+  //   getEditProduct,
+  //   postEditProduct,
+  //   postDeleteProduct,
+};

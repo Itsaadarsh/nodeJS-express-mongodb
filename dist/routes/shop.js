@@ -17,8 +17,8 @@ const router = express_1.default.Router();
 const index_1 = require("../index");
 router.get('/', (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(`<h1>Hey Mofos</h1>`);
-    const getDb = yield index_1.db;
-    console.log(getDb.collection);
+    const db = yield index_1.getDb;
+    console.log(db.collection);
 }));
 exports.default = module.exports = router;
 //# sourceMappingURL=shop.js.map

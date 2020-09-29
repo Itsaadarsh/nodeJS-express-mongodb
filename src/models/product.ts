@@ -1,5 +1,23 @@
-// import { db } from '../index';
-// console.log(db);
+import { getDb } from '../index';
+
+class Product {
+  constructor(
+    public title: string,
+    public price: number,
+    public description: string,
+    public imageUrl: string
+  ) {}
+
+  async save() {
+    try {
+      const db = await getDb;
+      const result = db.collection('products').insertOne(this);
+      console.log(await result);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
 
 // @Entity()
 // export class Product extends BaseEntity {
@@ -28,3 +46,5 @@
 //   @JoinColumn({ referencedColumnName: 'id', name: 'userid' })
 //   userid: User;
 // }
+
+export default module.exports = Product;
