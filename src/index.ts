@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import homeRouter from './routes/shop';
 import adminData from './routes/admin';
-// import errorRoute from './controllers/error';
+import errorRoute from './controllers/error';
 // import userRoute from './routes/user';
 import { MongoClient } from 'mongodb';
 
@@ -17,7 +17,7 @@ app.use('/admin', adminData.router);
 
 app.use(homeRouter);
 
-// app.use(errorRoute.error404);
+app.use(errorRoute.error404);
 
 async function connectionDB() {
   try {
