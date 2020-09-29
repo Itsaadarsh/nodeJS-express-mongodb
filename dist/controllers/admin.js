@@ -23,7 +23,7 @@ const getAddProduct = (_req, res, _next) => {
 const postAddProduct = (req, res, _next) => {
     const title = req.body.title;
     const imageUrl = req.body.imageUrl;
-    const price = req.body.price;
+    const price = +req.body.price;
     const description = req.body.description;
     const prod = new product_1.default(title, price, description, imageUrl);
     prod.save();
@@ -67,7 +67,7 @@ const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, f
         const prodId = req.body.productId;
         const title = req.body.title;
         const imageUrl = req.body.imageUrl;
-        const price = req.body.price;
+        const price = +req.body.price;
         const description = req.body.description;
         const prod = new product_1.default(title, price, description, imageUrl);
         const updating = yield prod.update(prodId);

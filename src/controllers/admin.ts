@@ -1,6 +1,5 @@
 import Product from '../models/product';
 import express from 'express';
-// import { User } from '../models/user';
 
 const getAddProduct = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
   res.render('admin/edit-product', {
@@ -13,7 +12,7 @@ const getAddProduct = (_req: express.Request, res: express.Response, _next: expr
 const postAddProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
-  const price = req.body.price;
+  const price = +req.body.price;
   const description = req.body.description;
   const prod = new Product(title, price, description, imageUrl);
   prod.save();
@@ -55,7 +54,7 @@ const postEditProduct = async (req: express.Request, res: express.Response, _nex
     const prodId: string = req.body.productId;
     const title = req.body.title;
     const imageUrl = req.body.imageUrl;
-    const price = req.body.price;
+    const price = +req.body.price;
     const description = req.body.description;
     const prod = new Product(title, price, description, imageUrl);
     const updating = await prod.update(prodId);
