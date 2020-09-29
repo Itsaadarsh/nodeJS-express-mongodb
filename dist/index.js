@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDb = void 0;
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const shop_1 = __importDefault(require("./routes/shop"));
 const admin_1 = __importDefault(require("./routes/admin"));
 const mongodb_1 = require("mongodb");
 const app = express_1.default();
@@ -22,6 +23,7 @@ app.set('view engine', 'ejs');
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.static('dist'));
 app.use('/admin', admin_1.default.router);
+app.use(shop_1.default);
 function connectionDB() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongodb_1 = require("mongodb");
 const index_1 = require("../index");
 class Product {
     constructor(title, price, description, imageUrl) {
@@ -22,10 +23,38 @@ class Product {
             try {
                 const db = yield index_1.getDb;
                 const result = db.collection('products').insertOne(this);
-                console.log(yield result);
             }
             catch (err) {
                 console.log(err);
+            }
+        });
+    }
+    static fetchAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const db = yield index_1.getDb;
+                const products = yield db.collection('products').find().toArray();
+                return products;
+            }
+            catch (err) {
+                console.log(err);
+                throw err;
+            }
+        });
+    }
+    static fetchOne(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const db = yield index_1.getDb;
+                const product = yield db
+                    .collection('products')
+                    .find({ _id: new mongodb_1.ObjectId(id) })
+                    .toArray();
+                return product;
+            }
+            catch (err) {
+                console.log(err);
+                throw err;
             }
         });
     }

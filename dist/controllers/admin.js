@@ -18,7 +18,7 @@ const postAddProduct = (req, res, _next) => {
     const description = req.body.description;
     const prod = new product_1.default(title, price, description, imageUrl);
     prod.save();
-    res.redirect('/admin/add-product');
+    res.redirect('/');
 };
 exports.default = module.exports = {
     getAddProduct,

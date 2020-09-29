@@ -1,48 +1,41 @@
-// import { Cart } from '../models/cart';
-// import { Product } from '../models/product';
-// import express from 'express';
-// import { CartItem } from '../models/cart-item';
-// import { Order } from '../models/order';
-// import { User } from '../models/user';
-// import { OrderItem } from '../models/order-item';
-// import { CartItems, OrderItems } from '../controllers/interface/shop';
+import Product from '../models/product';
+import express from 'express';
 
-// export const getHome = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   Product.find({ select: ['title', 'imageUrl', 'price', 'description', 'id'] })
-//     .then(products => {
-//       res.render('shop/index', {
-//         prods: products,
-//         pageTitle: 'SHOP',
-//         path: '/',
-//       });
-//     })
-//     .catch(console.log);
-// };
+export const getHome = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  try {
+    const products = await Product.fetchAll();
+    res.render('shop/index', {
+      prods: products,
+      pageTitle: 'SHOP',
+      path: '/',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-// const getProducts = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   Product.find({ select: ['title', 'imageUrl', 'price', 'description', 'id'] })
-//     .then(products => {
-//       res.render('shop/product-list', {
-//         prods: products,
-//         pageTitle: 'ALL PRODUCTS',
-//         path: '/products',
-//       });
-//     })
-//     .catch(console.log);
-// };
+const getProducts = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  try {
+    const products = await Product.fetchAll();
+    res.render('shop/product-list', {
+      prods: products,
+      pageTitle: 'ALL PRODUCTS',
+      path: '/products',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-// const getProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   const prodID: number = +req.params.productId;
-//   Product.findOne({ id: prodID })
-//     .then(prod => {
-//       res.render('shop/product-detail', {
-//         product: prod,
-//         pageTitle: prod!.title,
-//         path: '/products',
-//       });
-//     })
-//     .catch(console.log);
-// };
+const getProduct = async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const prodID: string = req.params.productId;
+  const prod = await Product.fetchOne(prodID);
+  res.render('shop/product-detail', {
+    product: prod[0],
+    pageTitle: prod[0]!.title,
+    path: '/products',
+  });
+};
 
 // const getCart = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   const product: CartItems[] = [];
@@ -154,13 +147,13 @@
 //     .catch(console.log);
 // };
 
-// export default module.exports = {
-//   getHome,
-//   getProducts,
-//   getCart,
-//   getOrders,
-//   postOrder,
-//   getProduct,
-//   postCart,
-//   postDeleteCart,
-// };
+export default module.exports = {
+  getHome,
+  getProducts,
+  //   getCart,
+  //   getOrders,
+  //   postOrder,
+  getProduct,
+  //   postCart,
+  //   postDeleteCart,
+};

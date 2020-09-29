@@ -1,4 +1,12 @@
+import { ObjectId } from 'mongodb';
 import { getDb } from '../index';
+
+interface PRODUCTS {
+  title: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+}
 
 class Product {
   constructor(
@@ -12,9 +20,33 @@ class Product {
     try {
       const db = await getDb;
       const result = db.collection('products').insertOne(this);
-      console.log(await result);
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  static async fetchAll() {
+    try {
+      const db = await getDb;
+      const products: Array<PRODUCTS> = await db.collection('products').find().toArray();
+      return products;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
+  static async fetchOne(id: string) {
+    try {
+      const db = await getDb;
+      const product: Array<PRODUCTS> = await db
+        .collection('products')
+        .find({ _id: new ObjectId(id) })
+        .toArray()!;
+      return product;
+    } catch (err) {
+      console.log(err);
+      throw err;
     }
   }
 }
