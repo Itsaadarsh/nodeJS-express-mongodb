@@ -20,18 +20,18 @@ const postAddProduct = (req: express.Request, res: express.Response, _next: expr
   res.redirect('/');
 };
 
-// const getProducts = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   Product.find({ where: { userid: 1 } })
-//     .then(products => {
-//       res.render('admin/products', {
-//         prods: products,
-//         pageTitle: 'ADMIN PRODUCTS',
-//         path: '/admin/products',
-//       });
-//     })
-//     .catch(console.log);
-// };
-
+const getProducts = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  try {
+    const products = await Product.fetchAll();
+    res.render('admin/products', {
+      prods: products,
+      pageTitle: 'ADMIN PRODUCTS',
+      path: '/admin/products',
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 // const getEditProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   const prodId = +req.params.productId;
 //   const edit = req.query.edit;
@@ -79,7 +79,7 @@ const postAddProduct = (req: express.Request, res: express.Response, _next: expr
 
 export default module.exports = {
   getAddProduct,
-  //   getProducts,
+  getProducts,
   postAddProduct,
   //   getEditProduct,
   //   postEditProduct,
