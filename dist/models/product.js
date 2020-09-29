@@ -41,7 +41,6 @@ class Product {
                         imageUrl: this.imageUrl,
                     },
                 });
-                console.log(updateProd);
             }
             catch (err) {
                 console.log(err);

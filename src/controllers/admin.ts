@@ -50,23 +50,20 @@ const getEditProduct = async (req: express.Request, res: express.Response, _next
   }
 };
 
-// const postEditProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   const prodId: number = +req.body.productId;
-//   if (typeof prodId === 'number') {
-//     Product.update(
-//       { id: prodId },
-//       {
-//         title: req.body.title,
-//         imageUrl: req.body.imageUrl,
-//         price: req.body.price,
-//         description: req.body.description,
-//       }
-//     );
-//     setTimeout(() => {
-//       res.redirect('/admin/products');
-//     }, 500);
-//   }
-// };
+const postEditProduct = async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  try {
+    const prodId: string = req.body.productId;
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+    const prod = new Product(title, price, description, imageUrl);
+    const updating = await prod.update(prodId);
+    res.redirect('/admin/products');
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // const postDeleteProduct = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   const prodId: number = +req.body.productId;
@@ -83,6 +80,6 @@ export default module.exports = {
   getProducts,
   postAddProduct,
   getEditProduct,
-  // postEditProduct,
+  postEditProduct,
   //   postDeleteProduct,
 };

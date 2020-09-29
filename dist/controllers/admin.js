@@ -62,10 +62,26 @@ const getEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, fu
         console.log(err);
     }
 });
+const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const prodId = req.body.productId;
+        const title = req.body.title;
+        const imageUrl = req.body.imageUrl;
+        const price = req.body.price;
+        const description = req.body.description;
+        const prod = new product_1.default(title, price, description, imageUrl);
+        const updating = yield prod.update(prodId);
+        res.redirect('/admin/products');
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 exports.default = module.exports = {
     getAddProduct,
     getProducts,
     postAddProduct,
     getEditProduct,
+    postEditProduct,
 };
 //# sourceMappingURL=admin.js.map

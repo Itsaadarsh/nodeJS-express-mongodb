@@ -39,7 +39,6 @@ class Product {
           },
         }
       );
-      console.log(updateProd);
     } catch (err) {
       console.log(err);
     }
