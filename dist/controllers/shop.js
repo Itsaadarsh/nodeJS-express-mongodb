@@ -43,11 +43,17 @@ const getProducts = (_req, res, _next) => __awaiter(void 0, void 0, void 0, func
 const getProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const prodID = req.params.productId;
     const prod = yield product_1.default.fetchOne(prodID);
-    res.render('shop/product-detail', {
-        product: prod[0],
-        pageTitle: prod[0].title,
-        path: '/products',
-    });
+    if (prod) {
+        res.render('shop/product-detail', {
+            product: prod,
+            pageTitle: prod.title,
+            path: '/products',
+        });
+    }
+    else {
+        res.redirect(`/${prodID}`);
+        return;
+    }
 });
 exports.default = module.exports = {
     getHome: exports.getHome,

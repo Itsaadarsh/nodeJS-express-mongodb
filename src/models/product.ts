@@ -53,10 +53,7 @@ class Product {
   static async fetchOne(id: string) {
     try {
       const db = await getDb;
-      const product: Array<PRODUCTS> = await db
-        .collection('products')
-        .find({ _id: new ObjectId(id) })
-        .toArray()!;
+      const product: PRODUCTS = await db.collection('products').findOne({ _id: new ObjectId(id) })!;
       return product;
     } catch (err) {
       console.log(err);

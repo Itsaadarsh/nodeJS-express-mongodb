@@ -59,10 +59,7 @@ class Product {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const db = yield index_1.getDb;
-                const product = yield db
-                    .collection('products')
-                    .find({ _id: new mongodb_1.ObjectId(id) })
-                    .toArray();
+                const product = yield db.collection('products').findOne({ _id: new mongodb_1.ObjectId(id) });
                 return product;
             }
             catch (err) {

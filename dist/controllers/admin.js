@@ -20,15 +20,15 @@ const getAddProduct = (_req, res, _next) => {
         editing: false,
     });
 };
-const postAddProduct = (req, res, _next) => {
+const postAddProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
     const imageUrl = req.body.imageUrl;
     const price = +req.body.price;
     const description = req.body.description;
     const prod = new product_1.default(title, price, description, imageUrl);
-    prod.save();
+    yield prod.save();
     res.redirect('/');
-};
+});
 const getProducts = (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const products = yield product_1.default.fetchAll();
@@ -46,17 +46,23 @@ const getEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, fu
     try {
         const prodId = req.params.productId;
         const edit = req.query.edit;
-        if (edit === 'false')
-            res.redirect('/');
-        const prod = yield product_1.default.fetchOne(prodId);
-        if (prod.length == 0)
-            res.redirect('/');
-        res.render('admin/edit-product', {
-            pageTitle: 'Edit Product',
-            path: '/admin/edit-product',
-            editing: edit,
-            product: prod[0],
-        });
+        if (edit === 'true') {
+            const prod = yield product_1.default.fetchOne(prodId);
+            if (!prod) {
+                res.redirect(`/${prodId}`);
+                return;
+            }
+            res.render('admin/edit-product', {
+                pageTitle: 'Edit Product',
+                path: '/admin/edit-product',
+                editing: edit,
+                product: prod,
+            });
+        }
+        else {
+            res.redirect('/admin/products');
+            return;
+        }
     }
     catch (err) {
         console.log(err);

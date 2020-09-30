@@ -30,11 +30,16 @@ const getProducts = async (_req: express.Request, res: express.Response, _next: 
 const getProduct = async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
   const prodID: string = req.params.productId;
   const prod = await Product.fetchOne(prodID);
-  res.render('shop/product-detail', {
-    product: prod[0],
-    pageTitle: prod[0]!.title,
-    path: '/products',
-  });
+  if (prod) {
+    res.render('shop/product-detail', {
+      product: prod,
+      pageTitle: prod!.title,
+      path: '/products',
+    });
+  } else {
+    res.redirect(`/${prodID}`);
+    return;
+  }
 };
 
 // const getCart = (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
