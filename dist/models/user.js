@@ -30,18 +30,36 @@ class User {
             }
         });
     }
+    static cartCheck(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateCart = { items: [] };
+            const db = yield index_1.getDb;
+            yield db
+                .collection('users')
+                .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: { items: [Object.assign(Object.assign({}, product), { qty: 1 })] } } });
+            User.cartItems = updateCart;
+        });
+    }
     static addToCart(product) {
         return __awaiter(this, void 0, void 0, function* () {
             if (User.cartItems.items.length == 0) {
-                const updateCart = { items: [Object.assign(Object.assign({}, product), { qty: 1 })] };
-                const db = yield index_1.getDb;
-                yield db
-                    .collection('users')
-                    .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: updateCart } });
-                User.cartItems = updateCart;
+                User.cartCheck(product);
             }
             else {
-                console.log(product._id);
+                User.cartItems.items.forEach((i) => __awaiter(this, void 0, void 0, function* () {
+                    var _a, _b;
+                    if (((_a = i === null || i === void 0 ? void 0 : i._id) === null || _a === void 0 ? void 0 : _a.toString()) === ((_b = product === null || product === void 0 ? void 0 : product._id) === null || _b === void 0 ? void 0 : _b.toString())) {
+                        i.qty += 1;
+                        const db = yield index_1.getDb;
+                        yield db
+                            .collection('users')
+                            .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: { items: [{ qty: i === null || i === void 0 ? void 0 : i.qty }] } } });
+                        User.cartItems = { items: [Object.assign(Object.assign({}, product), { qty: i.qty })] };
+                    }
+                    else {
+                        User.cartCheck(product);
+                    }
+                }));
             }
         });
     }
