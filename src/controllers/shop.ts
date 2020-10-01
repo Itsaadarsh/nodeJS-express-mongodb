@@ -63,6 +63,7 @@ const postCart = async (req: express.Request, res: express.Response, _next: expr
   const prodID: string = req.body.productId;
   const product = Product.fetchOne(prodID);
   User.addToCart(await product);
+  res.redirect('/cart');
 };
 
 // const postDeleteCart = (req: express.Request, res: express.Response, _next: express.NextFunction) => {

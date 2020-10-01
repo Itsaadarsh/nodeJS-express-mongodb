@@ -60,6 +60,7 @@ const postCart = (req, res, _next) => __awaiter(void 0, void 0, void 0, function
     const prodID = req.body.productId;
     const product = product_1.default.fetchOne(prodID);
     user_1.default.addToCart(yield product);
+    res.redirect('/cart');
 });
 exports.default = module.exports = {
     getHome: exports.getHome,
