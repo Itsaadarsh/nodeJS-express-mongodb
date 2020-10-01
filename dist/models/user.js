@@ -12,9 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const index_1 = require("../index");
 class User {
-    constructor(name, email) {
+    constructor(name, email, cart) {
         this.name = name;
         this.email = email;
+        this.cart = cart;
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,6 +27,16 @@ class User {
             catch (err) {
                 console.log(err);
             }
+        });
+    }
+    static addToCart(product) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateCart = { items: [Object.assign(Object.assign({}, product), { qty: 1 })] };
+            const db = yield index_1.getDb;
+            const updated = db
+                .collection('users')
+                .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: updateCart } });
+            return updated;
         });
     }
     static findByID(userID) {

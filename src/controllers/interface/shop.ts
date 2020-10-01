@@ -1,10 +1,10 @@
-// export interface CartItems {
-//   id: number;
-//   title: string;
-//   cartItem: { quantity: number };
-// }
+export interface CART {
+  items: [{ title?: string; price?: number; description?: string; imageUrl?: string; qty?: number }];
+}
 
-// export interface OrderItems {
-//   id: number;
-//   products: [{ title: string; qty: number }];
-// }
+export interface PRODUCTS {
+  title: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+}

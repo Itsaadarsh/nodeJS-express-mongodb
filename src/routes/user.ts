@@ -23,7 +23,7 @@ router.post(
   async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
     const username = req.body.username;
     const email = req.body.useremail;
-    const user = new User(username, email);
+    const user = new User(username, email, { items: [{}] });
     await user.save();
     res.redirect('/');
   }

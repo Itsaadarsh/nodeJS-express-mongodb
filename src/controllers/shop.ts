@@ -1,6 +1,6 @@
 import Product from '../models/product';
 import express from 'express';
-// import User from '../models/user';
+import User from '../models/user';
 
 export const getHome = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
   try {
@@ -59,38 +59,11 @@ const getProduct = async (req: express.Request, res: express.Response, _next: ex
 //     .catch(console.log);
 // };
 
-// const postCart = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
-//   const prodID: number = +req.body.productId;
-//   CartItem.find({ relations: ['prodid'], where: { prodid: { id: prodID } } })
-//     .then(avaiProd => {
-//       if (avaiProd.length === 0) {
-//         Product.findOne({ where: { id: prodID } })
-//           .then(prod => {
-//             Cart.find({ select: ['id'] })
-//               .then(cart => {
-//                 const defQty = 1;
-//                 const cartitem = new CartItem();
-//                 cartitem.quantity = defQty;
-//                 cartitem.cartid = cart[cart.length - 1];
-//                 cartitem.prodid = prod as Product;
-//                 cartitem.save();
-//                 setTimeout(() => {
-//                   res.redirect('/cart');
-//                 }, 500);
-//               })
-//               .catch(console.log);
-//           })
-//           .catch(console.log);
-//       } else {
-//         const updateQty = avaiProd[0].quantity + 1;
-//         CartItem.update({ id: avaiProd[0].id }, { quantity: updateQty });
-//         setTimeout(() => {
-//           res.redirect('/cart');
-//         }, 500);
-//       }
-//     })
-//     .catch(console.log);
-// };
+const postCart = async (req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  const prodID: string = req.body.productId;
+  const product = Product.fetchOne(prodID);
+  User.addToCart(await product);
+};
 
 // const postDeleteCart = (req: express.Request, res: express.Response, _next: express.NextFunction) => {
 //   const prodId: number = +req.body.productId;
@@ -160,6 +133,6 @@ export default module.exports = {
   //   getOrders,
   //   postOrder,
   getProduct,
-  //   postCart,
+  postCart,
   //   postDeleteCart,
 };

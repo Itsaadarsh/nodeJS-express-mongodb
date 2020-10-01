@@ -24,7 +24,7 @@ const postAddProduct = async (req: express.Request, res: express.Response, _next
 
 const getProducts = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
   try {
-    const products = await Product.adminFetchAll(User.userid);
+    const products = await Product.fetchAll();
     res.render('admin/products', {
       prods: products,
       pageTitle: 'ADMIN PRODUCTS',

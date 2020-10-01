@@ -34,7 +34,7 @@ const postAddProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, fu
 });
 const getProducts = (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const products = yield product_1.default.adminFetchAll(user_1.default.userid);
+        const products = yield product_1.default.fetchAll();
         res.render('admin/products', {
             prods: products,
             pageTitle: 'ADMIN PRODUCTS',

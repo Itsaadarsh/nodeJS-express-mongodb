@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getHome = void 0;
 const product_1 = __importDefault(require("../models/product"));
+const user_1 = __importDefault(require("../models/user"));
 exports.getHome = (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const products = yield product_1.default.fetchAll();
@@ -55,9 +56,15 @@ const getProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, functi
         return;
     }
 });
+const postCart = (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
+    const prodID = req.body.productId;
+    const product = product_1.default.fetchOne(prodID);
+    user_1.default.addToCart(yield product);
+});
 exports.default = module.exports = {
     getHome: exports.getHome,
     getProducts,
     getProduct,
+    postCart,
 };
 //# sourceMappingURL=shop.js.map

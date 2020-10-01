@@ -1,12 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { getDb } from '../index';
-
-interface PRODUCTS {
-  title: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-}
+import { PRODUCTS } from '../controllers/interface/shop';
 
 class Product {
   constructor(
