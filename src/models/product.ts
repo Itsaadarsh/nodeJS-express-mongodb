@@ -13,7 +13,8 @@ class Product {
     public title: string,
     public price: number,
     public description: string,
-    public imageUrl: string
+    public imageUrl: string,
+    public userId: string
   ) {}
 
   async save() {

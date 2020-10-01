@@ -1,5 +1,6 @@
 import Product from '../models/product';
 import express from 'express';
+// import User from '../models/user';
 
 export const getHome = async (_req: express.Request, res: express.Response, _next: express.NextFunction) => {
   try {

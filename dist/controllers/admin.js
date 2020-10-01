@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const product_1 = __importDefault(require("../models/product"));
+const user_1 = __importDefault(require("../models/user"));
 const getAddProduct = (_req, res, _next) => {
     res.render('admin/edit-product', {
         pageTitle: 'ADD PRODUCTS',
@@ -25,9 +26,11 @@ const postAddProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, fu
     const imageUrl = req.body.imageUrl;
     const price = +req.body.price;
     const description = req.body.description;
-    const prod = new product_1.default(title, price, description, imageUrl);
+    const prod = new product_1.default(title, price, description, imageUrl, user_1.default.userid);
     yield prod.save();
-    res.redirect('/');
+    setTimeout(() => {
+        res.redirect('/');
+    }, 600);
 });
 const getProducts = (_req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -75,7 +78,7 @@ const postEditProduct = (req, res, _next) => __awaiter(void 0, void 0, void 0, f
         const imageUrl = req.body.imageUrl;
         const price = +req.body.price;
         const description = req.body.description;
-        const prod = new product_1.default(title, price, description, imageUrl);
+        const prod = new product_1.default(title, price, description, imageUrl, user_1.default.userid);
         yield prod.update(prodId);
         res.redirect('/admin/products');
     }

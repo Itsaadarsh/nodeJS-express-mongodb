@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const index_1 = require("../index");
 class Product {
-    constructor(title, price, description, imageUrl) {
+    constructor(title, price, description, imageUrl, userId) {
         this.title = title;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.userId = userId;
     }
     save() {
         return __awaiter(this, void 0, void 0, function* () {
