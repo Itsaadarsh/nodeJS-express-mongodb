@@ -30,7 +30,7 @@ router.get('/:username/:email', (req, res, _next) => {
 router.post('/:username/:email', (req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const email = req.body.useremail;
-    const user = new user_1.default(username, email, { items: [{}] });
+    const user = new user_1.default(username, email, { items: [] });
     yield user.save();
     res.redirect('/');
 }));

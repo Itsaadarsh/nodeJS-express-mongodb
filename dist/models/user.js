@@ -23,6 +23,7 @@ class User {
                 const db = yield index_1.getDb;
                 const user = db.collection('users').insertOne(this);
                 User.userid = yield (yield user).ops[0]._id;
+                User.cartItems = yield (yield user).ops[0].cart;
             }
             catch (err) {
                 console.log(err);
@@ -31,12 +32,17 @@ class User {
     }
     static addToCart(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            const updateCart = { items: [Object.assign(Object.assign({}, product), { qty: 1 })] };
-            const db = yield index_1.getDb;
-            const updated = db
-                .collection('users')
-                .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: updateCart } });
-            return updated;
+            if (User.cartItems.items.length == 0) {
+                const updateCart = { items: [Object.assign(Object.assign({}, product), { qty: 1 })] };
+                const db = yield index_1.getDb;
+                yield db
+                    .collection('users')
+                    .updateOne({ _id: new mongodb_1.ObjectId(User.userid) }, { $set: { cart: updateCart } });
+                User.cartItems = updateCart;
+            }
+            else {
+                console.log(product._id);
+            }
         });
     }
     static findByID(userID) {
