@@ -40,6 +40,20 @@ class Product {
     }
   }
 
+  static async adminFetchAll(id: string) {
+    try {
+      const db = await getDb;
+      const products: Array<PRODUCTS> = await db
+        .collection('products')
+        .find({ userId: new ObjectId(id) })
+        .toArray();
+      return products;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  }
+
   static async fetchAll() {
     try {
       const db = await getDb;

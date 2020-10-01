@@ -43,6 +43,22 @@ class Product {
             }
         });
     }
+    static adminFetchAll(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const db = yield index_1.getDb;
+                const products = yield db
+                    .collection('products')
+                    .find({ userId: new mongodb_1.ObjectId(id) })
+                    .toArray();
+                return products;
+            }
+            catch (err) {
+                console.log(err);
+                throw err;
+            }
+        });
+    }
     static fetchAll() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
