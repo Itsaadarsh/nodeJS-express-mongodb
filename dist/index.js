@@ -31,7 +31,7 @@ app.use(error_1.default.error404);
 function connectionDB() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const client = yield mongodb_1.MongoClient.connect('mongodb+srv://aadi:rootadmin@cluster0.b7dxw.mongodb.net/test?retryWrites=true&w=majority', { useUnifiedTopology: true });
+            const client = yield mongodb_1.MongoClient.connect(`mongodb+srv://aadi:${process.env.MONGO_PWD}@cluster0.b7dxw.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true });
             console.log('Connected to Database');
             const db = client.db();
             app.listen(8080), console.log('Listening at 8080');

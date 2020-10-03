@@ -22,7 +22,7 @@ app.use(errorRoute.error404);
 async function connectionDB() {
   try {
     const client = await MongoClient.connect(
-      'mongodb+srv://aadi:rootadmin@cluster0.b7dxw.mongodb.net/test?retryWrites=true&w=majority',
+      `mongodb+srv://aadi:${process.env.MONGO_PWD}@cluster0.b7dxw.mongodb.net/test?retryWrites=true&w=majority`,
       { useUnifiedTopology: true }
     );
     console.log('Connected to Database');
