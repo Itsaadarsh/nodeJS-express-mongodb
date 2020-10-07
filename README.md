@@ -1,7 +1,7 @@
 # E-Commerce Website Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Itsaadarsh/nodeJS-express-postgreSQL/blob/master/LICENSE)
-![GitHub repo size](https://img.shields.io/github/repo-size/Itsaadarsh/nodeJS-express-postgreSQL)
+![GitHub repo size](https://img.shields.io/github/repo-size/Itsaadarsh/nodeJS-express-mongodb)
 
 An e-commerce site template built with TypeScript, NodeJS, Express, MongoDB, EJS.
 
